@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Список объявлений</h1>
+    <ul>
+        {% for not in notice %}
+            <li><a href="{% url 'not_detail' not.id %}">{{ not.title }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}
