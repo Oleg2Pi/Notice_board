@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Notices</title>
+</head>
+<body>
+    {% if is_logged %}
+        <button> <a href="{% url 'noticecreate' %}"> Опубликовать обьявление</a> </button>
+        <button><a href="{% url 'replies' %}">Мои отклики</a></button>
+        <button><a href="{% url 'logout' %}">Выйти</a></button>
+        {% if user_is_staff %}
+            <button><a href="{% url 'send_mails' %}">Сделать новостную рассылку</a></button>
+        {% endif %}
+    {% else %}
+        <button><a href="{% url 'login' %}">Войти</a></button>
+    {% endif %}
+
+    <p>Здравствуйте, {{ user.username }}</p>
+
+    {% if notice %}
+    <table align="center" cellspacing=20>
+           <tr>
+               <td style="font-size:20px"><b>Название</b></td>
+               <td style="font-size:20px"><b>Категория</b></td>
+               <td style="font-size:20px"><b>Содержание</b></td>
+           </tr>
+
+           {% for not in notice %}
+           <tr>
+               <td><a href="{% url 'not' notice.id %}">{{ not.title }}</a></td>
+               <td>
+                   {% for cat in not.category.all %}
+                   {{ cat }}
+                   {% endfor %}
+               </td>
+               <td>{{ notice.content|truncatewords:10}}</td>
+               <td>
+               {% if user == notice.notice_author %}
+                   <button><a href="{{ notice.id }}/edit">Редактировать</a></button>
+                   <button><a href="{{ notice.id }}/delete">Удалить</a></button>
+               {% endif %}
+               </td>
+           </tr>
+           {% endfor %}
+
+       </table>
+   {% else %}
+       <h2>Новостей нет!</h2>
+   {% endif %}
+
+</body>
+</html>
