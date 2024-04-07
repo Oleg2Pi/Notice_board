@@ -1,5 +1,5 @@
 """
-WSGI config for Notice_board project.
+WSGI config for board_of_ad project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Config.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'board_of_ad.settings')
 
 application = get_wsgi_application()
